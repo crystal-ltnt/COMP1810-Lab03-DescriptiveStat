@@ -6,7 +6,7 @@ Full step-by-step instructions are in:
 
 `Lecture3 Tutorial Descriptive statistics for Data Analytics and R programming.docx`
 
----
+------------------------------------------------------------------------
 
 ## Learning objectives
 
@@ -18,7 +18,7 @@ By the end of this lab you should be able to:
 - Use **dplyr** to filter, select, and transform data
 - Compute descriptive statistics and create summary visualisations
 
----
+------------------------------------------------------------------------
 
 ## Prerequisites
 
@@ -28,11 +28,11 @@ Install one of the following before starting:
 
 Many steps in the tutorial expect you to look up concepts online (e.g. how to import Excel files in R, how to install **dplyr**).
 
----
+------------------------------------------------------------------------
 
 ## Project structure
 
-```
+```         
 COMP1810-Lab03-DescriptiveStat/
 ├── Data/
 │   ├── data.csv       # Numeric dataset (columns: x, x2, x3, y)
@@ -45,21 +45,21 @@ COMP1810-Lab03-DescriptiveStat/
 
 Open `main.Rmd` in RStudio to write and run your code. Execute chunks with **Cmd+Shift+Enter** (macOS) or **Ctrl+Shift+Enter** (Windows/Linux).
 
----
+------------------------------------------------------------------------
 
 ## Getting started
 
-1. Clone or download this repository.
-2. Open the project folder in RStudio.
-3. Set your working directory to the project root (adjust the path for your machine):
+1.  Clone or download this repository.
+2.  Open the project folder in RStudio.
+3.  Set your working directory to the project root (adjust the path for your machine):
 
-```r
+``` r
 setwd("/path/to/COMP1810-Lab03-DescriptiveStat")
 ```
 
 > **Note:** `setwd()` may not work on some online/cloud environments. Use RStudio’s **Session → Set Working Directory → To Source File Location** instead.
 
----
+------------------------------------------------------------------------
 
 ## Task 1 — Import datasets into R
 
@@ -67,7 +67,7 @@ Download and import the three datasets provided for this lab: **data**, **hfligh
 
 ### CSV
 
-```r
+``` r
 data <- read.csv(file = "Data/data.csv", header = TRUE, sep = ",")
 data
 ```
@@ -76,7 +76,7 @@ data
 
 Reading `.xlsx` files requires an additional package such as **readxl** or **openxlsx**:
 
-```r
+``` r
 install.packages("readxl")
 library(readxl)
 
@@ -88,7 +88,7 @@ mpg      <- read_excel("Data/mpg.xlsx", sheet = 1)
 
 Select specific columns (e.g. `x` and `x3`) using base R or **dplyr**:
 
-```r
+``` r
 df <- data[, c("x", "x3")]
 
 # Or with dplyr:
@@ -96,13 +96,13 @@ library(dplyr)
 df <- select(data, x, x3)
 ```
 
----
+------------------------------------------------------------------------
 
 ## Task 2 — Install and load packages
 
 ### Install packages
 
-```r
+``` r
 install.packages("dplyr")
 install.packages("tidyverse")   # Meta-package for data analytics
 install.packages("vioplot")
@@ -114,43 +114,41 @@ install.packages(c("vioplot", "MASS"))
 
 Installing a package is not enough — you must load it before use:
 
-```r
+``` r
 library(dplyr)
 library(babynames)
 ```
 
 ### List functions in a loaded package
 
-```r
+``` r
 ls("package:babynames")
 ls("package:dplyr")
 ```
 
 ### Remove a package
 
-```r
+``` r
 remove.packages("vioplot")
 ```
 
 > **Tip:** **dplyr** (part of **tidyverse**) can overwrite some base R functions. If you need the original behaviour, be aware of namespace conflicts.
 
----
+------------------------------------------------------------------------
 
 ## Accessing datasets
 
-
-| Source                | How to access                                                                              |
-| --------------------- | ------------------------------------------------------------------------------------------ |
-| Course materials      | Files in `Data/`                                                                           |
-| Built-in R datasets   | `data()`                                                                                   |
-| Datasets in a package | `data(package = "ggplot2")`                                                                |
-| UCI ML Repository     | [https://archive.ics.uci.edu/ml/datasets.php](https://archive.ics.uci.edu/ml/datasets.php) |
-| Kaggle                | [https://www.kaggle.com/datasets](https://www.kaggle.com/datasets)                         |
-
+| Source                | How to access                                 |
+|-----------------------|-----------------------------------------------|
+| Course materials      | Files in `Data/`                              |
+| Built-in R datasets   | `data()`                                      |
+| Datasets in a package | `data(package = "ggplot2")`                   |
+| UCI ML Repository     | <https://archive.ics.uci.edu/ml/datasets.php> |
+| Kaggle                | <https://www.kaggle.com/datasets>             |
 
 ### Example: flights data with nycflights13
 
-```r
+``` r
 install.packages("nycflights13")
 library(nycflights13)
 
@@ -160,26 +158,24 @@ dec25 <- filter(flights, month == 12, day == 25)
 
 ### Getting help
 
-```r
+``` r
 ?mean
 help(datasets)
 ```
 
----
+------------------------------------------------------------------------
 
 ## dplyr — data manipulation
 
 The core **dplyr** verbs (remember **filter → arrange → select → mutate → summarize**):
 
-
 | Function      | Purpose                       |
-| ------------- | ----------------------------- |
+|---------------|-------------------------------|
 | `filter()`    | Keep rows matching conditions |
 | `arrange()`   | Sort rows                     |
 | `select()`    | Choose columns                |
 | `mutate()`    | Create new variables          |
 | `summarize()` | Aggregate to summary values   |
-
 
 ### Comparison operators
 
@@ -187,7 +183,7 @@ The core **dplyr** verbs (remember **filter → arrange → select → mutate �
 
 ### Filter examples
 
-```r
+``` r
 # Flights in November or December
 filter(flights, month == 11 | month == 12)
 filter(flights, month %in% c(11, 12))
@@ -197,13 +193,13 @@ filter(flights, !(arr_delay > 120 | dep_delay > 120))
 filter(flights, arr_delay <= 120, dep_delay <= 120)
 ```
 
----
+------------------------------------------------------------------------
 
 ## Descriptive analysis in R
 
 Work with columns from `data` (e.g. `x` and `x3`):
 
-```r
+``` r
 df <- data[, c("x", "x3")]
 x  <- df$x
 x3 <- data$x3
@@ -211,7 +207,7 @@ x3 <- data$x3
 
 ### Measures of central tendency
 
-```r
+``` r
 # Mean (remove NA values)
 xmean <- mean(x, na.rm = TRUE)
 
@@ -228,7 +224,7 @@ xmode <- getmode(x)
 
 ### Measures of spread
 
-```r
+``` r
 var(x3)              # Sample variance
 sd(x3)               # Standard deviation
 summary(x3)          # Five-number summary + mean
@@ -238,15 +234,15 @@ IQR(x3)              # Interquartile range
 
 ### Visualisation
 
-```r
+``` r
 boxplot(x3, horizontal = TRUE)
 ```
 
----
+------------------------------------------------------------------------
 
 ## Lab workflow
 
-```
+```         
 Setup R/RStudio
       ↓
 Import data (CSV & Excel)
@@ -260,7 +256,7 @@ Descriptive statistics & box plots
 
 Record your work and outputs in `main.Rmd`.
 
----
+------------------------------------------------------------------------
 
 ## Resources
 
@@ -269,9 +265,9 @@ Record your work and outputs in `main.Rmd`.
 - [Project Jupyter — Try Jupyter](https://jupyter.org/try)
 - Tutorial document: `Lecture3 Tutorial Descriptive statistics for Data Analytics and R programming.docx`
 
----
+------------------------------------------------------------------------
 
 ## Course
 
-**COMP1810** — Data Analytics  
+**COMP1810** — Data Analytics\
 Lab 03: Descriptive Statistics for Data Analytics and R Programming
