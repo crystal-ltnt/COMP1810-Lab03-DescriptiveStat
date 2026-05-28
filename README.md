@@ -262,7 +262,6 @@ Record your work and outputs in `main.Rmd`.
 
 - [R Documentation](https://www.rdocumentation.org/)
 - [dplyr cheat sheet](https://posit.co/learn/cheatsheets/)
-- [Project Jupyter — Try Jupyter](https://jupyter.org/try)
 - Tutorial document: `Lecture3 Tutorial Descriptive statistics for Data Analytics and R programming.docx`
 
 ------------------------------------------------------------------------
